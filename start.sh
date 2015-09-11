@@ -45,7 +45,6 @@ if [ ! -f /var/www/sites/default/settings.php ]; then
 	cd /var/www/html/sites/all/modules
 	git clone --branch 7.x-6.x git://git.drupal.org/project/brightcove.git
 	drush en brightcove -y
-	drush en brightcove_field -y
 
 	# Stop mysql
 	killall mysqld

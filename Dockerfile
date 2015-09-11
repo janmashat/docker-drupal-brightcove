@@ -12,6 +12,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get autoclean
 
 # Configuration changes
 RUN sed -i -e '163,169s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+RUN sed -i -e "s/Timeout\s*=\s*300/Timeout = 3600/g" /etc/apache2/apache2.conf
 RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 2G/g" /etc/php5/apache2/php.ini
 RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 2G/g" /etc/php5/apache2/php.ini
 RUN sed -i -e "s/^bind-address/#bind-address/" /etc/mysql/my.cnf
