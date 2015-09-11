@@ -34,6 +34,9 @@ if [ ! -f /var/www/sites/default/settings.php ]; then
 	chmod a+w /var/www/html/sites/default
 	chown -R www-data:www-data .
 
+	# Download Date module (required: date_popup, date_api)
+	drush dl date
+
 	# Install PHP-API-Wrapper
 	cd /var/www/html/sites/all/libraries
 	git clone https://github.com/brightcove/PHP-API-Wrapper.git
