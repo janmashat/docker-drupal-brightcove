@@ -5,6 +5,8 @@ Docker image for Drupal 7.x with Brightcove 7.x-6.x.
 
 Based on: https://github.com/ricardoamaro/docker-drupal
 
+Note: the Drupal site must be accessible from the internet in order for uploading to work (Brightcove pulls uploaded videos/images/captions)
+
 ### How to use:
 
 ```sh
