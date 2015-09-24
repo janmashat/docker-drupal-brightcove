@@ -26,16 +26,13 @@ if [ ! -f /var/www/sites/default/settings.php ]; then
 	# Install Drupal
 	rm -rf /var/www/html
 	cd /var/www
-	drush dl drupal-7.x --drupal-project-rename=html
+	drush dl drupal-7 --drupal-project-rename=html
 	cd /var/www/html
 	drush site-install standard -y --account-name=admin --account-pass=admin \
 		--db-url="mysqli://drupal:${DRUPAL_PASSWORD}@localhost:3306/drupal"
 	mkdir /var/www/html/sites/default/files
 	chmod a+w /var/www/html/sites/default
 	chown -R www-data:www-data .
-
-	# Download Date module (required: date_popup, date_api)
-	drush dl date
 
 	# Install PHP-API-Wrapper
 	cd /var/www/html/sites/all/libraries
@@ -44,9 +41,8 @@ if [ ! -f /var/www/sites/default/settings.php ]; then
 	curl -sS https://getcomposer.org/installer | php
 	php composer.phar install
 
-	# Install Brightcove module
-	cd /var/www/html/sites/all/modules
-	git clone --branch 7.x-6.x git://git.drupal.org/project/brightcove.git
+	# Download Date module (necessary: date_popup, date_api) and install Brightcove module
+	drush dl date
 	drush en brightcove -y
 
 	# Stop mysql

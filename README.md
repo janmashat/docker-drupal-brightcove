@@ -1,7 +1,7 @@
 docker-drupal-brightcove
 ==============
 
-Docker image for Drupal 7.x with Brightcove 7.x-6.x.
+Docker image for Drupal 7 with latest Brightcove module (7.x-6.x).
 
 Based on: https://github.com/ricardoamaro/docker-drupal
 
