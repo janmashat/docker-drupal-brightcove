@@ -18,6 +18,8 @@ docker build -t drupal-bc .
 docker run -it --name drupal-bc -p 80:80 -p 9001:9001 drupal-bc
 ```
 
+The session will start within a GNU screen, so you can `ctrl-a c` to create a new screen.
+
 If you would like to store the docroot on the host:
 
 ```sh
