@@ -1,7 +1,8 @@
 docker-drupal-brightcove
 ==============
 
-Docker image for Drupal 7 with latest Brightcove module (7.x-6.x).
+This is a recipe for building a [Docker](https://www.docker.com/) container with Drupal 7 and the latest Brightcove module (7.x-6.x), including Linux (Debian 8), Apache and MySQL.
+Before building, make sure you have [Docker Engine](https://docs.docker.com/engine/installation/) installed.
 
 Based on: https://github.com/ricardoamaro/docker-drupal
 

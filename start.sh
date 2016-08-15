@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -f /var/www/sites/default/settings.php ]; then
+if [ ! -f /var/www/html/sites/default/settings.php ]; then
 	# Upgrade debian packages
 	DEBIAN_FRONTEND=noninteractive apt-get update
 	DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
@@ -34,6 +34,9 @@ if [ ! -f /var/www/sites/default/settings.php ]; then
 	chmod a+w /var/www/html/sites/default
 	chown -R www-data:www-data .
 
+	# Download Date (required: date_popup, date_api)
+	drush dl date
+
 	# Install PHP-API-Wrapper
 	cd /var/www/html/sites/all/libraries
 	git clone https://github.com/brightcove/PHP-API-Wrapper.git
@@ -41,8 +44,7 @@ if [ ! -f /var/www/sites/default/settings.php ]; then
 	curl -sS https://getcomposer.org/installer | php
 	php composer.phar install
 
-	# Download Date module (necessary: date_popup, date_api) and install Brightcove module
-	drush dl date
+	# Install Brightcove
 	drush en brightcove -y
 
 	# Stop mysql

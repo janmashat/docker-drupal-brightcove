@@ -6,7 +6,7 @@ MAINTAINER Jan <jan@pronovix.com>
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN dpkg-divert --local --rename --add /sbin/initctl
 RUN ln -sf /bin/true /sbin/initctl  
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install ssh git drush screen mc nano curl pwgen vim-tiny python-setuptools \
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install ssh git screen mc nano wget curl pwgen vim-tiny python-setuptools \
 	apache2 mysql-server libapache2-mod-php5 php5-mysql php-apc php5-gd php5-curl php5-memcache memcached
 RUN DEBIAN_FRONTEND=noninteractive apt-get autoclean
 
@@ -17,6 +17,13 @@ RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 2G/g" /etc/p
 RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 2G/g" /etc/php5/apache2/php.ini
 RUN sed -i -e "s/^bind-address/#bind-address/" /etc/mysql/my.cnf
 RUN a2enmod rewrite vhost_alias
+
+# Install Drush
+RUN wget http://files.drush.org/drush.phar
+RUN php drush.phar core-status
+RUN chmod +x drush.phar
+RUN mv drush.phar /usr/local/bin/drush
+RUN drush init
 
 # Set up supervisor
 RUN easy_install supervisor
