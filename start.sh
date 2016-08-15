@@ -22,6 +22,16 @@ if [ ! -f /var/www/html/sites/default/settings.php ]; then
 	mysqladmin -u root password $MYSQL_PASSWORD 
 	mysql -uroot -p$MYSQL_PASSWORD -e "CREATE DATABASE drupal; GRANT ALL PRIVILEGES ON drupal.* \
 		TO 'drupal'@'localhost' IDENTIFIED BY '$DRUPAL_PASSWORD'; FLUSH PRIVILEGES;"
+
+        # Install Composer
+        cd /root/
+        php composer-setup.php
+        mv composer.phar /usr/local/bin/composer
+
+        # Install Drush
+        composer self-update
+        composer global require drush/drush
+        ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
 	
 	# Install Drupal
 	rm -rf /var/www/html
@@ -41,8 +51,7 @@ if [ ! -f /var/www/html/sites/default/settings.php ]; then
 	cd /var/www/html/sites/all/libraries
 	git clone https://github.com/brightcove/PHP-API-Wrapper.git
 	cd /var/www/html/sites/all/libraries/PHP-API-Wrapper
-	curl -sS https://getcomposer.org/installer | php
-	php composer.phar install
+	composer install
 
 	# Install Brightcove
 	drush en brightcove -y

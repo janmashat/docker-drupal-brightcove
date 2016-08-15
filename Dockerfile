@@ -18,12 +18,8 @@ RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 2G/g" /etc/php5/apache2/
 RUN sed -i -e "s/^bind-address/#bind-address/" /etc/mysql/my.cnf
 RUN a2enmod rewrite vhost_alias
 
-# Install Drush
-RUN wget http://files.drush.org/drush.phar
-RUN php drush.phar core-status
-RUN chmod +x drush.phar
-RUN mv drush.phar /usr/local/bin/drush
-RUN drush init
+# Add composer-setup
+ADD ./composer-setup.php /root/composer-setup.php
 
 # Set up supervisor
 RUN easy_install supervisor
